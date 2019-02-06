@@ -1,0 +1,31 @@
+<% include ../partials/header %>
+
+<div class="container pt-5">
+    <form action="/home/<%= item._id %>/comments" method="POST" class="w-50 mx-auto mb-4">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Post a new comment to <strong><%= item.name %></strong></h1>
+        <label for="inputAuthor" class="sr-only">Author</label>
+        <input 
+            type="text" 
+            id="inputAuthor" 
+            class="form-control mb-3" 
+            placeholder="Author" 
+            name="comment[author]" 
+            required 
+            autofocus 
+        />
+            
+        <label>Comment:</label>
+        <textarea
+            class="form-control mb-3"
+            name="comment[text]" rows="4" required></textarea>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">
+            Submit
+        </button>
+    </form>
+    <div class="container-fluid w-50 text-left">
+        <a href="/home">Back to Homepage</a>
+    </div>
+</div>
+
+<% include ../partials/footer %>

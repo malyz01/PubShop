@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+
+<div class="container-fluid w-75 mt-3">
+  <div class="row">
+    <div class="col-md-3">
+      <p>Additional info</p>
+    </div>
+    <div class="col-md-9">
+      <div class="card">
+        <div class="d-flex justify-content-between bg-dark text-white">
+          <div class="card-header">
+            <Strong><%= item.name %></Strong>
+          </div>          
+          <div class="card-header">
+            <strong>9.00</strong>
+          </div>
+        </div>
+        <img class="card-img-top" src="<%= item.image %>" alt="pic" />
+        <div class="card-body">
+          <p class="card-text">
+            <strong>Description:</strong> <%= item.description %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-end mt-5">
+    <div class="col-md-9">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="headerStyle">Comments:</div>
+          <a href="/home/<%= item._id %>/comments/new" class="btn btn-success">Leave a review</a>
+        </div>
+        <div class="card-body">
+          <% item.comments.map(comment => { %>
+            <hr>
+            <h5 class=card-title><%= comment.author %></h2>
+            <p class="card-text"><%= comment.text %></p>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<% include ../partials/footer %>
