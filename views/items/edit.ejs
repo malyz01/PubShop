@@ -1,15 +1,15 @@
 <% include ../partials/header %>
 
 <div class="container pt-5">
-  <form action="/home" method="POST" class="w-50 mx-auto mb-4">
-    <h1 class="h3 mb-3 font-weight-normal text-center"><strong>Post a new item</strong></h1>
+  <form action="/home/<%= item._id %>?_method=PUT" method="POST" class="w-50 mx-auto mb-4">
+    <h1 class="h3 mb-3 font-weight-normal text-center"><strong>Edit <%= item.name %></strong></h1>
     <label for="inputName" class="sr-only">Name</label>
     <input
       type="text"
       id="inputname"
       class="form-control mb-3"
-      placeholder="Name"
-      name="name"
+      name="item[name]"
+      value="<%= item.name %>"
       required
       autofocus
     />
@@ -18,19 +18,18 @@
       type="text"
       id="inputImage"
       class="form-control mb-3"
-      placeholder="Image URL"
-      name="image"
+      name="item[image]"
+      value="<%= item.image %>"
       required
     />
     <label for="inputImage"">Description:</label>
     <textarea
       id="inputDescription"
       class="form-control mb-3"
-      placeholder="Description"
-      name="description"
+      name="item[description]"
       rows="4"
       required
-    ></textarea>
+    ><%= item.description %></textarea>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">
       Submit

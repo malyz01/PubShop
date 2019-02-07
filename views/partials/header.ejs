@@ -28,10 +28,14 @@
               </p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
-              <ul class="list-unstyled">
-                <li><a href="/" class="text-white">Login</a></li>
-                <li><a href="/" class="text-white">Sign Up</a></li>
-                <li><a href="/" class="text-white">Logout</a></li>
+              <ul class="list-unstyled text-right">
+                <% if(!currentUser){ %>
+                <li><a href="/login" class="text-white">Login</a></li>
+                <li><a href="/register" class="text-white">Sign Up</a></li>
+                <% } else { %>
+                <li class="text-white mb-3">Currently signed in as: <strong><%= currentUser.username.toUpperCase() %></strong> </li>
+                <li><a href="/logout" class="text-white">Logout</a></li>
+                <% } %>
               </ul>
             </div>
           </div>

@@ -27,26 +27,26 @@ seedDB = () => {
   Item.deleteMany({}, err => {
     if (!err) {
       console.log("removed all items");
-      Item.insertMany(data, (err, items) => {
-        if (!err) {
-          console.log(`added: ${items}`);
-          Comment.create(
-            {
-              text: "testing 1234",
-              author: "Homer"
-            },
-            (err, comment) => {
-              if (!err) {
-                items.map(item => {
-                  item.comments.push(comment);
-                  item.save();
-                  console.log(`Added comment for each items: ${item}`);
-                });
-              }
-            }
-          );
-        }
-      });
+      //   Item.insertMany(data, (err, items) => {
+      //     if (!err) {
+      //       console.log(`added: ${items}`);
+      //       Comment.create(
+      //         {
+      //           text: "testing 1234",
+      //           author: "Homer"
+      //         },
+      //         (err, comment) => {
+      //           if (!err) {
+      //             items.map(item => {
+      //               item.comments.push(comment);
+      //               item.save();
+      //               console.log(`Added comment for each items: ${item}`);
+      //             });
+      //           }
+      //         }
+      //       );
+      //     }
+      //   });
     }
   });
 };

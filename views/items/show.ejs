@@ -20,6 +20,17 @@
           <p class="card-text">
             <strong>Description:</strong> <%= item.description %>
           </p>
+          <p class="card-text">
+            <em>Posted by: <%= foundUser %></em>
+          </p>
+          <% if(currentUser && item.author.id.equals(currentUser._id)){ %>
+            <div class="card-text d-inline-flex">
+              <a class="btn btn-outline-dark px-3 mr-3" href="/home/<%= item._id %>/edit">Edit</a>
+              <form action="/home/<%= item._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-outline-dark px-2">Delete</button>
+              </form>
+            </div>          
+          <% } %>
         </div>
       </div>
     </div>
@@ -34,14 +45,14 @@
         <div class="card-body">
           <% item.comments.map(comment => { %>
             <hr>
-            <h5 class=card-title><%= comment.author %></h2>
+            <h5 class=card-title><%= comment.author.username %></h2>
             <p class="card-text"><%= comment.text %></p>
+            <a href="/home/<%= item._id %>/comments/<%= comment._id %>/edit">Edit</a> <a href="">Delete</a>
           <% }); %>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 
 
