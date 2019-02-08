@@ -21,7 +21,7 @@
             <strong>Description:</strong> <%= item.description %>
           </p>
           <p class="card-text">
-            <em>Posted by: <%= foundUser %></em>
+            <em>Posted by: <span class="text-capitalize"><%= item.author.username %></span></em>
           </p>
           <% if(currentUser && item.author.id.equals(currentUser._id)){ %>
             <div class="card-text d-inline-flex">
@@ -43,11 +43,27 @@
           <a href="/home/<%= item._id %>/comments/new" class="btn btn-success">Leave a review</a>
         </div>
         <div class="card-body">
-          <% item.comments.map(comment => { %>
-            <hr>
-            <h5 class=card-title><%= comment.author.username %></h2>
-            <p class="card-text"><%= comment.text %></p>
-            <a href="/home/<%= item._id %>/comments/<%= comment._id %>/edit">Edit</a> <a href="">Delete</a>
+          <% item.comments.map(comment => { %>           
+            <div class="row pb-2">  
+              <div class="col-sm-2 h5 text-center text-capitalize font-weight-bolder"><%= comment.author.username %></div>
+              <div class="col-sm-8"><%= comment.text %></div>
+              <div class="col-sm-2 h6 text-center text-muted">10 hours ago</div> 
+            </div>
+          <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+            <div class="row justify-content-center">
+              <div class="col-sm-8 d-flex justify-content-end">
+                <a class="pr-2 btn" href="/home/<%= item._id %>/comments/<%= comment._id %>/edit">Edit</a> 
+                <form 
+                    action="/home/<%= item._id %>/comments/<%= comment._id %>?_method=DELETE" 
+                    method="POST"
+                    id="delete"
+                    >
+                    <button type="submit" class="btn">Delete</button>
+                </form>
+              </div>
+            </div>
+            <% } %>
+             <hr>
           <% }); %>
         </div>
       </div>

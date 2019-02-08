@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const methodOveride = require("method-override");
@@ -20,6 +21,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOveride("_method"));
+app.use(flash());
 
 mongoose.connect(
   "mongodb+srv://admin-malyz:test123@cluster0-bpx1g.mongodb.net/pubShopDB",
@@ -46,19 +48,14 @@ passport.deserializeUser(User.deserializeUser());
 //middleware for all routes
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
   next();
 });
 
 app.use(indexRoutes);
 app.use(homeRoutes);
 app.use(commentRoutes);
-
-const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect("/login");
-};
 
 let port = process.env.PORT;
 if (port == null || port == "") {
