@@ -35,10 +35,21 @@ router.get(
   "/home/:id/comments/:comment_id/edit",
   middleware.checkCommentOwnership,
   (req, res) => {
-    Comment.findById(req.params.comment_id, (err, result) => {
-      if (!err) {
-        res.render("comments/edit", { item: req.params.id, comment: result });
+    Item.findById(req.params.id, (err, foundItem) => {
+      if (err || !foundItem) {
+        req.flash("error", "Item does not exist.");
+        return res.redirect("back");
       }
+      Comment.findById(req.params.comment_id, (err, result) => {
+        if (err) {
+          res.redirect("back");
+        } else {
+          res.render("comments/edit", {
+            item: req.params.id,
+            comment: result
+          });
+        }
+      });
     });
   }
 );

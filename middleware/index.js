@@ -32,7 +32,10 @@ module.exports = {
   checkCommentOwnership: (req, res, next) => {
     if (req.isAuthenticated()) {
       Comment.findById(req.params.comment_id, (err, found) => {
-        if (!err) {
+        if (err || !found) {
+          req.flash("error", "Comment does not exist.");
+          res.redirect("back");
+        } else {
           if (found.author.id.equals(req.user._id)) {
             next();
           } else {

@@ -17,13 +17,14 @@ router.get("/home", (req, res) => {
 // create new Post
 router.post("/home", middleware.isLoggedIn, (req, res) => {
   const name = req.body.name;
+  const price = req.body.price;
   const image = req.body.image;
   const description = req.body.description;
   const author = {
     id: req.user.id,
     username: req.user.username
   };
-  Item.create({ name, image, description, author }, (err, newItem) => {
+  Item.create({ name, price, image, description, author }, (err, newItem) => {
     if (!err) {
       res.redirect("/home");
     }
