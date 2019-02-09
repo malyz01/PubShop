@@ -24,6 +24,7 @@ router.post("/home/:id/comments", middleware.isLoggedIn, (req, res) => {
           result.save();
           item.comments.push(result);
           item.save();
+          console.log(result.createdAt);
           res.redirect(`/home/${item._id}`);
         }
       });

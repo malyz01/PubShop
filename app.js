@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -23,17 +24,18 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOveride("_method"));
 app.use(flash());
 
-mongoose.connect(
-  "mongodb+srv://admin-malyz:test123@cluster0-bpx1g.mongodb.net/pubShopDB",
-  { useNewUrlParser: true }
-);
+mongoose.connect(`${process.env.MONGO_URL}pubShopDB`, {
+  useNewUrlParser: true
+});
 
 // SeedDB();
+
+app.locals.moment = require("moment");
 
 //PASSPORT CONFIGURATION
 app.use(
   require("express-session")({
-    secret: "qwerttyyuuupoiusdfdcfwewv",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false
   })

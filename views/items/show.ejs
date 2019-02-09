@@ -12,7 +12,7 @@
             <Strong><%= item.name %></Strong>
           </div>          
           <div class="card-header">
-            <strong><%= item.price %></strong>
+            <strong>$ <%= item.price %></strong>
           </div>
         </div>
         <img class="card-img-top" src="<%= item.image %>" alt="pic" />
@@ -21,7 +21,7 @@
             <strong>Description:</strong> <%= item.description %>
           </p>
           <p class="card-text">
-            <em>Posted by: <span class="text-capitalize"><%= item.author.username %></span></em>
+            <em>Posted by: <span class="text-capitalize"><%= item.author.username %> <%= moment(item.createdAt).fromNow() %></span></em>
           </p>
           <% if(currentUser && item.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
             <div class="card-text d-inline-flex">
@@ -47,7 +47,7 @@
             <div class="row pb-2">  
               <div class="col-sm-2 h5 text-center text-capitalize font-weight-bolder"><%= comment.author.username %></div>
               <div class="col-sm-8"><%= comment.text %></div>
-              <div class="col-sm-2 h6 text-center text-muted">10 hours ago</div> 
+              <div class="col-sm-2 h6 text-center text-muted"><%= moment(comment.createdAt).fromNow() %></div> 
             </div>
           <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
             <div class="row justify-content-center">
