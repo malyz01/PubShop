@@ -1,25 +1,106 @@
 const mongoose = require("mongoose");
 const Item = require("./models/item");
-const Comment = require("./models/comments");
 
 const data = [
   {
-    name: "Drone",
+    name: "Dumbells",
+    price: "20",
     image:
-      "https://images.unsplash.com/photo-1521405924368-64c5b84bec60?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80",
-    description: "Can operate for more than 10mins but less than 20mins max"
+      "https://images.unsplash.com/photo-1493690283958-32df2c86326e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1348&q=80",
+    description: "8kg Dumbells",
+    author: {
+      id: "5c5b5f012beda875f037ef4e",
+      username: "matt"
+    }
   },
   {
-    name: "Polaroid",
+    name: "Bike",
+    price: "150",
     image:
-      "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-    description: "Realiable polaroid camera. Can print photos anywhere"
+      "https://images.unsplash.com/photo-1485965120184-e220f721d03e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+    description: "Barely used",
+    author: {
+      id: "5c5b5f012beda875f037ef4e",
+      username: "matt"
+    }
   },
   {
-    name: "Pen",
+    name: "Scooter",
+    price: "499",
     image:
-      "https://images.unsplash.com/photo-1531087131490-07836ca4341d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80",
-    description: "Late Uncle's Pen he gave me before he passed"
+      "https://images.unsplash.com/photo-1495608312049-285ae516323d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80",
+    description: "Smooth ride!",
+    author: {
+      id: "5c5b5f012beda875f037ef4e",
+      username: "matt"
+    }
+  },
+
+  {
+    name: "Camera",
+    price: "799",
+    image:
+      "https://images.unsplash.com/photo-1519638831568-d9897f54ed69?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+    description: "picture perfect!",
+    author: {
+      id: "5c5bcaa6da53787d94ac4c01",
+      username: "champ"
+    }
+  },
+  {
+    name: "Cellphone",
+    price: "899",
+    image:
+      "https://images.unsplash.com/photo-1439219970881-3727d2e3402a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+    description: "Used but feels new",
+    author: {
+      id: "5c5bcaa6da53787d94ac4c01",
+      username: "champ"
+    }
+  },
+  {
+    name: "Laptop",
+    price: "1599",
+    image:
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80",
+    description: "Specs: i7 Intel 8th Generation, 770gtx Nvidia GPU",
+    author: {
+      id: "5c5d329b045be79704509e20",
+      username: "user123"
+    }
+  },
+  {
+    name: "Table",
+    price: "80",
+    image:
+      "https://images.unsplash.com/photo-1493934558415-9d19f0b2b4d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1336&q=80",
+    description: "New! not yet used!",
+    author: {
+      id: "5c5d329b045be79704509e20",
+      username: "user123"
+    }
+  },
+  {
+    name: "Calculator",
+    price: "20",
+    image:
+      "https://images.unsplash.com/photo-1544761634-dc512f2238a3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+    description: "Scientific calculator",
+    author: {
+      id: "5c5d3395045be79704509e24",
+      username: "shopaholic"
+    }
+  },
+  {
+    name: "Watch",
+    price: "140",
+    image:
+      "https://images.unsplash.com/photo-1526045431048-f857369baa09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80",
+    description: "Stylish design",
+    author: {
+      id: "5c5d3395045be79704509e24",
+      username: "shopaholic"
+    }
   }
 ];
 
@@ -27,26 +108,11 @@ seedDB = () => {
   Item.deleteMany({}, err => {
     if (!err) {
       console.log("removed all items");
-      //   Item.insertMany(data, (err, items) => {
-      //     if (!err) {
-      //       console.log(`added: ${items}`);
-      //       Comment.create(
-      //         {
-      //           text: "testing 1234",
-      //           author: "Homer"
-      //         },
-      //         (err, comment) => {
-      //           if (!err) {
-      //             items.map(item => {
-      //               item.comments.push(comment);
-      //               item.save();
-      //               console.log(`Added comment for each items: ${item}`);
-      //             });
-      //           }
-      //         }
-      //       );
-      //     }
-      //   });
+      Item.insertMany(data, (err, items) => {
+        if (!err) {
+          console.log(`added: ${items}`);
+        }
+      });
     }
   });
 };
