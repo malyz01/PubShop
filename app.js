@@ -28,7 +28,7 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
-SeedDB();
+// SeedDB();
 
 //PASSPORT CONFIGURATION
 app.use(

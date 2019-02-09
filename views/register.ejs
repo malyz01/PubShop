@@ -1,14 +1,40 @@
 <% include partials/header %>
-<div class="container-fluid w-75">
-    <div class="container w-50 text-center min-vw-50">
-        <form action="/register" method="POST" class="form-signin mt-5">
-            <h1 class="h3 mb-3 font-weight-normal">Please register</h1>
-            <label for="inputUsername" class="sr-only">Username</label>
-            <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username" autocomplete="off" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        </form>
+<div class="text-center d-flex justify-content-center">
+  <form action="/register" method="POST" class="form-signin mt-5">
+    <h1 class="h3 mb-3">Please fill up form to register</h1>
+    <label for="inputUsername" class="sr-only">Username</label>
+    <input
+      type="text"
+      id="inputUsername"
+      class="form-control form-control-lg mb-2"
+      placeholder="Username"
+      name="username"
+      autocomplete="off"
+      required
+      autofocus
+    />
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input
+      type="password"
+      id="inputPassword"
+      class="form-control form-control-lg mb-2"
+      placeholder="Password"
+      name="password"
+      required
+    />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">
+      Register
+    </button>
+    <div class="d-flex justify-content-center">
+      <input
+        type="password"
+        class="form-control form-control-lg mb-1 w-50 text-center mt-5"
+        placeholder="#admin code"
+        name="adminCode"
+      />
     </div>
+    <label class="text-muted">Not required</label>
+  </form>
 </div>
+
 <% include partials/footer %>
