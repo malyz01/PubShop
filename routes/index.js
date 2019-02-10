@@ -36,7 +36,9 @@ router.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/home",
-    failureRedirect: "/login"
+    failureRedirect: "/login",
+    failureFlash: true,
+    successFlash: "Welcome to PubShop!"
   }),
   (req, res) => {}
 );

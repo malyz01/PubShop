@@ -25,37 +25,12 @@
   </head>
 
   <body>
-    <div class="container-fluid w-75">
-      <div class="collapse bg-4" id="navbarHeader">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-sm-8 col-md-7 py-4">
-              <p class="lead">About</p>
-              <p>
-                PubShop is a experimental website on which you can post, sell
-                and/or comment to your items. You can also comment other user's
-                items.
-              </p>
-            </div>
-            <div class="col-sm-4 offset-md-1 py-4">
-              <ul class="list-unstyled text-right">
-                <% if(!currentUser){ %>
-                <li><a href="/login" class="text-white">Login</a></li>
-                <li><a href="/register" class="text-white">Sign Up</a></li>
-                <% } else { %>
-                <li class="text-white mb-3">
-                  Currently signed in as:
-                  <strong><%= currentUser.username.toUpperCase() %></strong>
-                </li>
-                <li><a href="/logout" class="text-white">Logout</a></li>
-                <% } %>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Expand at sm</a>
+    <div class="container-fluid w-75 bg-1 px-0">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-4">
+        <a class="navbar-brand" href="/home"
+          ><strong class="logo h1"
+            >PubShop <i class="fas fa-shopping-basket"></i></strong
+        ></a>
         <button
           class="navbar-toggler"
           type="button"
@@ -69,64 +44,32 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExample03">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"
-                >Home <span class="sr-only">(current)</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="dropdown03"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Dropdown</a
-              >
-              <div class="dropdown-menu" aria-labelledby="dropdown03">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-md-0">
-            <input class="form-control" type="text" placeholder="Search" />
-          </form>
+          <div class="ml-auto py-2">
+            <% if(!currentUser){ %>
+            <a href="/login" class="btn btn-outline-light btn-lg mr-4">Login</a>
+            <a href="/register" class="btn btn-outline-light btn-lg"
+              >Register</a
+            >
+            <% } else { %>
+            <div class="d-inline-flex align-items-center">
+              <p class="h3 my-0 bg-4 mr-4">
+                signed as:
+                <span class="text-capitalize font-weight-bold"
+                  ><%= currentUser.username %></span
+                >
+              </p>
+              <a href="/logout" class="btn btn-outline-light btn-lg">Logout</a>
+            </div>
+            <% } %>
+          </div>
         </div>
       </nav>
-      <div class="navbar navbar-light bg-4">
-        <div class="container-fluid d-flex justify-content-between">
-          <a href="/home" class="navbar-brand d-flex align-items-center py-3">
-            <strong class="logo display-4 bg-4"
-              >PubShop <i class="fas fa-shopping-basket"></i
-            ></strong>
-          </a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarHeader"
-            aria-controls="navbarHeader"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        </div>
-      </div>
       <% if(error && error.length > 0) { %>
-      <div class="alert alert-danger"><%= error %></div>
+      <div class="alert alert-danger h4 text-center mb-0"><%= error %></div>
       <% } %> <% if(success && success.length > 0) { %>
-      <div class="alert alert-success"><%= success %></div>
+      <div class="alert alert-success h4 text-center mb-0">
+        <%= success %>
+      </div>
       <% } %>
     </div>
   </body>

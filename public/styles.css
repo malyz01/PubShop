@@ -33,6 +33,11 @@ p {
   font-family: "Pacifico", cursive;
 }
 
+.customLogForm {
+  padding-top: 100px;
+  padding-bottom: 300px;
+}
+
 .headerStyle {
   font-size: 25px;
   font-weight: bold;
