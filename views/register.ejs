@@ -1,7 +1,11 @@
 <% include partials/header %>
-<div class="text-center d-flex justify-content-center">
-  <form action="/register" method="POST" class="form-signin mt-5">
-    <h1 class="h3 mb-3">Please fill up form to register</h1>
+<div class="container-fluid w-75 pt-5 customLogForm px-0 text-center">
+    <div class="container-fluid px-0 pb-3 text-left">
+    <a class="btn btn-info btn-lg" href="/home"
+        ><i class="far fa-arrow-alt-circle-left fa-lg"></i> Back</a>
+    </div>
+  <form action="/register" method="POST" class="form-signin mx-auto">
+    <h1 class="h3 mb-3">Registration form:</h1>
     <label for="inputUsername" class="sr-only">Username</label>
     <input
       type="text"
@@ -17,12 +21,12 @@
     <input
       type="password"
       id="inputPassword"
-      class="form-control form-control-lg mb-2"
+      class="form-control form-control-lg mb-3"
       placeholder="Password"
       name="password"
       required
     />
-    <button class="btn btn-lg btn-primary btn-block" type="submit">
+    <button class="btn btn-lg btn-info btn-block" type="submit">
       Register
     </button>
     <div class="d-flex justify-content-center">

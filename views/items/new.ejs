@@ -1,9 +1,15 @@
 <% include ../partials/header %>
 
-<div class="container pt-5">
-  <form action="/home" method="POST" class="w-50 mx-auto mb-4">
-    <h1 class="h3 mb-3 font-weight-normal text-center"><strong>Post a new item</strong></h1>
-    <label for="inputName" class="sr-only">Name</label>
+<div class="container-fluid w-75 pt-5 customLogForm px-0">
+  <div class="container-fluid px-0 pb-3">
+    <a class="btn btn-info btn-lg" href="/home"
+      ><i class="far fa-arrow-alt-circle-left fa-lg"></i> Back</a
+    >
+  </div>
+  <form action="/home" method="POST" class="form-post mx-auto">
+    <h1 class="h3 mb-3 font-weight-normal text-center">
+      <strong>Post a new item</strong>
+    </h1>
     <input
       type="text"
       id="inputname"
@@ -13,7 +19,6 @@
       required
       autofocus
     />
-    <label for="inputPrice" class="sr-only">Price</label>
     <input
       type="number"
       min="0.10"
@@ -25,7 +30,6 @@
       required
       autofocus
     />
-    <label for="inputImage" class="sr-only">Image URL</label>
     <input
       type="text"
       id="inputImage"
@@ -34,23 +38,13 @@
       name="image"
       required
     />
-    <label for="inputImage"">Description:</label>
-    <textarea
-      id="inputDescription"
-      class="form-control mb-3"
-      placeholder="Description"
-      name="description"
-      rows="4"
-      required
-    ></textarea>
+    <label>Description:</label>
+    <textarea class="form-control mb-3" name="description" rows="5"></textarea>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">
       Submit
     </button>
   </form>
-  <div class="container-fluid w-50 text-left">
-    <a href="/home">Back to Homepage</a>
-  </div>
 </div>
 
 <% include ../partials/footer %>
