@@ -26,7 +26,7 @@
 
   <body>
     <div class="container-fluid w-75 bg-1 px-0">
-      <nav class="navbar navbar-expand-sm navbar-dark bg-4">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-3">
         <a class="navbar-brand" href="/home"
           ><strong class="logo h1"
             >PubShop <i class="fas fa-shopping-basket"></i></strong
@@ -46,19 +46,19 @@
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <div class="ml-auto py-2">
             <% if(!currentUser){ %>
-            <a href="/login" class="btn btn-outline-light btn-lg mr-4">Login</a>
-            <a href="/register" class="btn btn-outline-light btn-lg"
+            <a href="/login" class="btn btn-outline-light mr-4">Login</a>
+            <a href="/register" class="btn btn-outline-light"
               >Register</a
             >
             <% } else { %>
             <div class="d-inline-flex align-items-center">
-              <p class="h4 my-0 bg-4 mr-4">
+              <p class="h4 my-0 mr-4">
                 signed in as:
                 <span class="text-capitalize font-weight-bold"
                   ><%= currentUser.username %></span
                 >
               </p>
-              <a href="/logout" class="btn btn-outline-light btn-lg">Logout</a>
+              <a href="/logout" class="btn btn-outline-light">Logout</a>
             </div>
             <% } %>
           </div>

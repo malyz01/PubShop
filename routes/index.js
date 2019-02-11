@@ -196,10 +196,10 @@ router.post("/reset/:token", (req, res) => {
           from: "autoresponse1010@gmail.com",
           subject: "Your password has been changed",
           text: `Hello ${foundUser.username}, 
-          You have successfully changed your password.
+You have successfully changed your password.
           
-          Regards,
-          PubShop`
+Regards,
+PubShop`
         };
         smtpTransport.sendMail(mailOptions, err => {
           req.flash(
