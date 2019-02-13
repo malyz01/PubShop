@@ -6,6 +6,7 @@ const Item = require("../models/item");
 const async = require("async");
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
+const _ = require("lodash");
 
 router.get("/", (req, res) => {
   res.render("landing");
@@ -47,12 +48,14 @@ router.get("/login", (req, res) => {
 router.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/home",
     failureRedirect: "/login",
-    failureFlash: true,
-    successFlash: "Welcome to PubShop!"
+    failureFlash: true
   }),
-  (req, res) => {}
+  (req, res) => {
+    let username = _.capitalize(req.user.username);
+    req.flash("success", `Welcome back to PubShop ${username}!`);
+    res.redirect("/home");
+  }
 );
 
 router.get("/logout", (req, res) => {
@@ -105,10 +108,7 @@ router.post("/forgot", (req, res, next) => {
           to: foundUser.email,
           from: "autoresponse1010@gmail.com",
           subject: "PubShop Password Reset",
-          text: `You are receiving this email because you have requested to reset your password. 
-If you did not request for this, kindly ignore this email.
-Please click on the following link or paste this into your browser to complete the process:
-https://experimentalpubshop.herokuapp.com/reset/${token}`
+          text: `You are receiving this email because you have requested to reset your password.\nIf you did not request for this, kindly ignore this email.\nPlease click on the following link or paste this into your browser to complete the process:\nhttps://experimentalpubshop.herokuapp.com/reset/${token}`
         };
         smtpTransport.sendMail(mailOptions, err => {
           req.flash(
@@ -145,41 +145,13 @@ router.get("/reset/:token", (req, res) => {
 });
 
 router.post("/reset/:token", (req, res) => {
-  async.waterfall(
-    [
-      done => {
-        User.findOne(
-          {
-            resetPasswordToken: req.params.token,
-            resetPasswordExpires: { $gt: Date.now() }
-          },
-          (err, foundUser) => {
-            if (!foundUser) {
-              req.flash(
-                "error",
-                "Password reset token is invalid or has expired."
-              );
-              return res.redirect("back");
-            }
-            if (req.body.password === req.body.confirmPassword) {
-              foundUser.setPassword(req.body.password, err => {
-                foundUser.resetPasswordToken = undefined;
-                foundUser.resetPasswordExpires = undefined;
-
-                foundUser.save(err => {
-                  req.logIn(foundUser, err => {
-                    done(err, foundUser);
-                  });
-                });
-              });
-            } else {
-              req.flash("error", "Passwords does not match");
-              return res.redirect("back");
-            }
-          }
-        );
+  if (req.body.password === req.body.confirmPassword) {
+    User.findOne(
+      {
+        resetPasswordToken: req.params.token,
+        resetPasswordExpires: { $gt: Date.now() }
       },
-      (foundUser, done) => {
+      async (err, foundUser) => {
         let smtpTransport = nodemailer.createTransport({
           service: "Gmail",
           secure: false,
@@ -195,25 +167,29 @@ router.post("/reset/:token", (req, res) => {
           to: foundUser.email,
           from: "autoresponse1010@gmail.com",
           subject: "Your password has been changed",
-          text: `Hello ${foundUser.username}, 
-You have successfully changed your password.
-          
-Regards,
-PubShop`
+          text: `Hello ${
+            foundUser.username
+          },\nYou have successfully changed your password.\n\nRegards,\nPubShop`
         };
-        smtpTransport.sendMail(mailOptions, err => {
-          req.flash(
-            "success",
-            `${founduser.username} Your password has been changed.`
-          );
-          done(err);
-        });
+        try {
+          let updatedUser = await foundUser.setPassword(req.body.password);
+          updatedUser.resetPasswordToken = undefined;
+          updatedUser.resetPasswordExpires = undefined;
+          let result = await updatedUser.save();
+          req.logIn(result, err => {});
+          smtpTransport.sendMail(mailOptions);
+          req.flash("success", `You have successfully changed your password`);
+          return res.redirect("/home");
+        } catch (err) {
+          req.flash("error", err.message);
+          return res.redirect("/home");
+        }
       }
-    ],
-    err => {
-      res.redirect("/home");
-    }
-  );
+    );
+  } else {
+    req.flash("error", "Passwords does not match");
+    return res.redirect("back");
+  }
 });
 
 module.exports = router;

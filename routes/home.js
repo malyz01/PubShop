@@ -105,7 +105,7 @@ router.put(
           try {
             await cloudinary.v2.uploader.destroy(item.imageId);
             let result = await cloudinary.v2.uploader.upload(req.file.path);
-            item.imageId = result.public._id;
+            item.imageId = result.public_id;
             item.image = result.secure_url;
           } catch (err) {
             req.flash("error", err.message);

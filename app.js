@@ -27,6 +27,7 @@ app.use(flash());
 mongoose.connect(`${process.env.MONGO_URL}pubShopDB`, {
   useNewUrlParser: true
 });
+mongoose.set("useCreateIndex", true);
 
 // SeedDB();
 
