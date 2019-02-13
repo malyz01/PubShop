@@ -6,16 +6,15 @@
       ><i class="far fa-arrow-alt-circle-left fa-lg"></i> Back</a
     >
   </div>
-  <form action="/home" method="POST" class="form-post mx-auto">
+  <form action="/home" method="POST" enctype="multipart/form-data" class="form-post mx-auto">
     <h1 class="h3 mb-3 font-weight-normal text-center">
       <strong>Post a new item</strong>
     </h1>
     <input
       type="text"
-      id="inputname"
       class="form-control mb-3"
       placeholder="Name"
-      name="name"
+      name="item[name]"
       required
       autofocus
     />
@@ -23,23 +22,22 @@
       type="number"
       min="0.10"
       step="0.10"
-      id="inputPrice"
       class="form-control mb-3"
       placeholder="Price"
-      name="price"
+      name="item[price]"
       required
       autofocus
     />
+    <label>Image upload</label>
     <input
-      type="text"
-      id="inputImage"
+      type="file"
       class="form-control mb-3"
-      placeholder="Image URL"
+      accept="image/*"
       name="image"
       required
     />
     <label>Description:</label>
-    <textarea class="form-control mb-3" name="description" rows="5"></textarea>
+    <textarea class="form-control mb-3" name="item[description]" rows="5"></textarea>
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">
       Submit

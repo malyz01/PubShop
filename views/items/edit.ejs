@@ -7,6 +7,7 @@
   </div>
   <form
     action="/home/<%= item._id %>?_method=PUT"
+    enctype="multipart/form-data"
     method="POST"
     class="form-post mx-auto"
   >
@@ -17,7 +18,7 @@
       type="text"
       id="inputname"
       class="form-control mb-3"
-      name="item[name]"
+      name="name"
       value="<%= item.name %>"
       required
       autofocus
@@ -29,20 +30,19 @@
       id="inputPrice"
       class="form-control mb-3"
       value="<%= item.price %>"
-      name="item[price]"
+      name="price"
       required
       autofocus
     />
+    <label>Image upload</label>
     <input
-      type="text"
-      id="inputImage"
+      type="file"
       class="form-control mb-3"
-      name="item[image]"
-      value="<%= item.image %>"
-      required
+      accept="image/*"
+      name="image" 
     />
     <label>Description:</label>
-    <textarea class="form-control mb-3" name="item[description]" rows="5"><%= item.description %></textarea>
+    <textarea class="form-control mb-3" name="description" rows="5"><%= item.description %></textarea>
 
     <button class="btn btn-lg btn-info btn-block" type="submit">
       Submit
